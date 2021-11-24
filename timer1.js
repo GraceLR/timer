@@ -1,11 +1,26 @@
 
+// variable name: descriptive
+// dry
+// condition
+// pull out function
 
-const time = process.argv.slice(2);
+const beep = () => {
+  process.stdout.write('\x07');
+};
 
-time.forEach(ele => {
-    if (typeof Number(ele) === 'number' && Number(ele) >= 0) {
-        setTimeout(() => {
-            process.stdout.write('\x07');
-          }, Number(ele) * 1000); 
-    }
+const scheduleAlarm = (sec) => {
+  setTimeout(() => {
+    beep();
+  }, sec * 1000);
+};
+
+const alarmTimes = process.argv.slice(2);
+
+alarmTimes.forEach(timeStr => {
+  const timeNum = Number(timeStr);
+  if (!isNaN(timeNum) && timeNum >= 0) {
+    scheduleAlarm(timeNum);
+  }
+
 });
+
